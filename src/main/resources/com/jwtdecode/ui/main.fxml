@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.jwtdecode.ui.MainController"
+            stylesheets="@style.css">
+
+    <top>
+        <VBox styleClass="title-bar">
+            <Label text="JWT_Crack_Gonnacrazy" styleClass="app-title"/>
+            <Label text="JWT 密钥爆破工具  |  支持 HS / RS / PS / ES 全系列算法  |  PEM证书字典  |  ES base64url编码爆破" styleClass="app-subtitle"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="12" styleClass="main-content">
+            <padding>
+                <Insets top="14" right="16" bottom="14" left="16"/>
+            </padding>
+
+            <VBox spacing="6" styleClass="section-box">
+                <Label text="① 字典文件" styleClass="section-label"/>
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <TextField fx:id="dictPathField" styleClass="dict-path-field" HBox.hgrow="ALWAYS"
+                               maxWidth="Infinity"/>
+                    <Button fx:id="browseDictBtn" text="选择字典..." styleClass="browse-btn"
+                            onAction="#onBrowseDict" minWidth="100"/>
+                </HBox>
+                <Label text="推荐 *.txt 格式，UTF-8编码，一行一条。HS类型直接填普通字符串/base64url；RS/PS/ES类型每行一个PEM证书"
+                       styleClass="hint-label" wrapText="true"/>
+            </VBox>
+
+            <VBox spacing="6" styleClass="section-box">
+                <Label text="② 爆破选项" styleClass="section-label"/>
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <CheckBox fx:id="parallelCheckBox" text="CPU并行爆破（多线程，推荐开启）" styleClass="option-check"/>
+                </HBox>
+                <Label text="并行模式：利用全部CPU核心同时爆破，大幅提升速度。若CPU核心数极少或硬盘I/O已是瓶颈可取消勾选。"
+                       styleClass="hint-label" wrapText="true"/>
+            </VBox>
+
+            <VBox spacing="6" styleClass="section-box" VBox.vgrow="SOMETIMES">
+                <Label text="③ JWT令牌" styleClass="section-label"/>
+                <TextArea fx:id="jwtInputArea" styleClass="jwt-input" prefRowCount="3"
+                          wrapText="true"/>
+            </VBox>
+
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Button fx:id="startBtn" text="▶  开始爆破" styleClass="start-btn" minWidth="130"
+                        onAction="#onStart"/>
+                <Button fx:id="stopBtn" text="■  停止爆破" styleClass="stop-btn" minWidth="130"
+                        onAction="#onStop"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="clearBtn" text="清空结果" styleClass="clear-btn" minWidth="90"
+                        onAction="#onClear"/>
+            </HBox>
+
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label fx:id="statusLabel" text="就绪" styleClass="status-label"/>
+                <ProgressBar fx:id="progressBar" progress="0" HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                             styleClass="progress-bar-custom"/>
+            </HBox>
+
+            <VBox spacing="6" styleClass="section-box" VBox.vgrow="ALWAYS" maxHeight="Infinity">
+                <Label text="④ 结果输出  （命中密钥以 [+] 开头，用 ★ 标记包围）" styleClass="section-label"/>
+                <TextArea fx:id="resultArea" styleClass="result-area" VBox.vgrow="ALWAYS"
+                          minHeight="200" maxHeight="Infinity" wrapText="true"/>
+            </VBox>
+
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox styleClass="footer-bar" alignment="CENTER">
+            <Label text="JWT_Crack_Gonnacrazy  |  支持 HS256/384/512  RS256/384/512  ES256/384/512  PS256/384/512  |  不支持 EdDSA"
+                   styleClass="footer-label"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

@@ -1,0 +1,263 @@
+/* =====================================================
+   JWT_Decode-wuwu  —  Application Stylesheet
+   Dark theme with green accent
+   ===================================================== */
+
+/* Root / general */
+.root {
+    -fx-font-family: "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #1e1e2e;
+}
+
+/* ---- Title bar ---- */
+.title-bar {
+    -fx-background-color: #13131f;
+    -fx-padding: 14 16 12 16;
+    -fx-spacing: 4;
+    -fx-border-color: #2a2a3e;
+    -fx-border-width: 0 0 2 0;
+}
+
+.app-title {
+    -fx-text-fill: #00e676;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.app-subtitle {
+    -fx-text-fill: #8888aa;
+    -fx-font-size: 11px;
+}
+
+/* ---- Main content ---- */
+.main-content {
+    -fx-background-color: #1e1e2e;
+}
+
+/* ---- Section boxes ---- */
+.section-box {
+    -fx-background-color: #25253a;
+    -fx-padding: 10 12 10 12;
+    -fx-background-radius: 6;
+    -fx-border-color: #35355a;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+}
+
+.section-label {
+    -fx-text-fill: #00e676;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.hint-label {
+    -fx-text-fill: #8888aa;
+    -fx-font-size: 11px;
+}
+
+/* ---- Dict path field ---- */
+.dict-path-field {
+    -fx-background-color: #16162a;
+    -fx-text-fill: #ccccdd;
+    -fx-border-color: #35355a;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 6 8 6 8;
+}
+
+.dict-path-field:focused {
+    -fx-border-color: #00e676;
+}
+
+/* ---- Browse button ---- */
+.browse-btn {
+    -fx-background-color: #35355a;
+    -fx-text-fill: #ccccdd;
+    -fx-border-color: #55557a;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+    -fx-padding: 6 14 6 14;
+}
+
+.browse-btn:hover {
+    -fx-background-color: #45456a;
+}
+
+/* ---- Options ---- */
+.option-check {
+    -fx-text-fill: #ccccdd;
+}
+
+.option-check .box {
+    -fx-background-color: #16162a;
+    -fx-border-color: #55557a;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+.option-check:selected .box {
+    -fx-background-color: #00e676;
+    -fx-border-color: #00e676;
+}
+
+.option-check:selected .mark {
+    -fx-background-color: #13131f;
+}
+
+/* ---- JWT input area ---- */
+.jwt-input {
+    -fx-background-color: #16162a;
+    -fx-text-fill: #e0e0f0;
+    -fx-border-color: #35355a;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+    -fx-control-inner-background: #16162a;
+    -fx-highlight-fill: #00e67640;
+}
+
+.jwt-input .content {
+    -fx-background-color: #16162a;
+}
+
+/* ---- Start button ---- */
+.start-btn {
+    -fx-background-color: #00c853;
+    -fx-text-fill: #13131f;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-padding: 8 18 8 18;
+}
+
+.start-btn:hover {
+    -fx-background-color: #00e676;
+}
+
+.start-btn:disabled {
+    -fx-background-color: #2a4a35;
+    -fx-text-fill: #557755;
+}
+
+/* ---- Stop button ---- */
+.stop-btn {
+    -fx-background-color: #c62828;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-padding: 8 18 8 18;
+}
+
+.stop-btn:hover {
+    -fx-background-color: #ef5350;
+}
+
+.stop-btn:disabled {
+    -fx-background-color: #3a2222;
+    -fx-text-fill: #775555;
+}
+
+/* ---- Clear button ---- */
+.clear-btn {
+    -fx-background-color: #35355a;
+    -fx-text-fill: #aaaacc;
+    -fx-border-color: #55557a;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+    -fx-padding: 6 14 6 14;
+}
+
+.clear-btn:hover {
+    -fx-background-color: #45456a;
+    -fx-text-fill: #ccccee;
+}
+
+/* ---- Status label ---- */
+.status-label {
+    -fx-text-fill: #aaaacc;
+    -fx-font-size: 12px;
+    -fx-min-width: 220;
+}
+
+/* ---- Progress bar ---- */
+.progress-bar-custom {
+    -fx-accent: #00e676;
+}
+
+.progress-bar-custom .track {
+    -fx-background-color: #16162a;
+    -fx-background-radius: 3;
+}
+
+.progress-bar-custom .bar {
+    -fx-background-color: #00e676;
+    -fx-background-radius: 3;
+    -fx-background-insets: 0;
+}
+
+/* ---- Result area ---- */
+.result-area {
+    -fx-background-color: #0d0d1a;
+    -fx-text-fill: #ccddcc;
+    -fx-border-color: #2a2a4a;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+    -fx-control-inner-background: #0d0d1a;
+}
+
+.result-area .content {
+    -fx-background-color: #0d0d1a;
+}
+
+/* ---- Footer ---- */
+.footer-bar {
+    -fx-background-color: #13131f;
+    -fx-padding: 6 16 6 16;
+    -fx-border-color: #2a2a3e;
+    -fx-border-width: 2 0 0 0;
+}
+
+.footer-label {
+    -fx-text-fill: #55556a;
+    -fx-font-size: 11px;
+}
+
+/* ---- ScrollBar ---- */
+.scroll-bar .thumb {
+    -fx-background-color: #35355a;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #55557a;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #16162a;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: #1e1e2e;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: #55556a;
+}
