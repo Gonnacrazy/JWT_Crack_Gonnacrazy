@@ -18,6 +18,8 @@
     </top>
 
     <center>
+        <ScrollPane fx:id="mainScrollPane" fitToWidth="true" styleClass="main-scroll"
+                    hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
         <VBox spacing="12" styleClass="main-content">
             <padding>
                 <Insets top="14" right="16" bottom="14" left="16"/>
@@ -50,6 +52,39 @@
                           wrapText="true"/>
             </VBox>
 
+            <VBox spacing="8" styleClass="section-box">
+                <Label text="④ JWT 解析 &amp; 伪造" styleClass="section-label"/>
+
+                <HBox spacing="10">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                        <Label text="Header JSON（可修改）" styleClass="hint-label"/>
+                        <TextArea fx:id="forgeHeaderArea" styleClass="forge-area" prefRowCount="4"
+                                  wrapText="true" HBox.hgrow="ALWAYS"/>
+                    </VBox>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                        <Label text="Payload JSON（可修改）" styleClass="hint-label"/>
+                        <TextArea fx:id="forgePayloadArea" styleClass="forge-area" prefRowCount="4"
+                                  wrapText="true" HBox.hgrow="ALWAYS"/>
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                        <Label text="密钥 / PEM私钥（支持HS字符串或RS/ES/PS私钥）" styleClass="hint-label"/>
+                        <TextArea fx:id="forgeKeyArea" styleClass="forge-area" prefRowCount="3"
+                                  wrapText="true"/>
+                    </VBox>
+                    <Button fx:id="forgeBtn" text="生成伪造 JWT" styleClass="forge-btn"
+                            onAction="#onForge" minWidth="120" maxHeight="Infinity"/>
+                </HBox>
+
+                <VBox spacing="4">
+                    <Label text="伪造后的完整 JWT（可直接复制使用）" styleClass="hint-label"/>
+                    <TextArea fx:id="forgeResultArea" styleClass="forge-result-area" prefRowCount="3"
+                              wrapText="true" editable="false"/>
+                </VBox>
+            </VBox>
+
             <HBox spacing="12" alignment="CENTER_LEFT">
                 <Button fx:id="startBtn" text="▶  开始爆破" styleClass="start-btn" minWidth="130"
                         onAction="#onStart"/>
@@ -67,12 +102,13 @@
             </HBox>
 
             <VBox spacing="6" styleClass="section-box" VBox.vgrow="ALWAYS" maxHeight="Infinity">
-                <Label text="④ 结果输出  （命中密钥以 [+] 开头，用 ★ 标记包围）" styleClass="section-label"/>
+                <Label text="⑤ 结果输出  （命中密钥以 [+] 开头，用 ★ 标记包围）" styleClass="section-label"/>
                 <TextArea fx:id="resultArea" styleClass="result-area" VBox.vgrow="ALWAYS"
                           minHeight="200" maxHeight="Infinity" wrapText="true"/>
             </VBox>
 
         </VBox>
+        </ScrollPane>
     </center>
 
     <bottom>

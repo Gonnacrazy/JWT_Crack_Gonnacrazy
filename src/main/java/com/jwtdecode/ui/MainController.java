@@ -1,11 +1,13 @@
 package com.jwtdecode.ui;
 
 import com.jwtdecode.core.BruteForceEngine;
+import com.jwtdecode.core.JwtForger;
 import com.jwtdecode.core.JwtToken;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -26,8 +28,18 @@ public class MainController implements Initializable {
     // === Options ===
     @FXML private CheckBox parallelCheckBox;
 
+    // === Main scroll pane ===
+    @FXML private ScrollPane mainScrollPane;
+
     // === JWT input ===
     @FXML private TextArea jwtInputArea;
+
+    // === Forge workspace ===
+    @FXML private TextArea forgeHeaderArea;
+    @FXML private TextArea forgePayloadArea;
+    @FXML private TextArea forgeKeyArea;
+    @FXML private Button   forgeBtn;
+    @FXML private TextArea forgeResultArea;
 
     // === Control buttons ===
     @FXML private Button startBtn;
@@ -68,6 +80,33 @@ public class MainController implements Initializable {
         // Dict path field not editable, click to browse
         dictPathField.setEditable(false);
         dictPathField.setPromptText("点击右侧按钮选择字典文件 (*.txt)");
+
+        // Forge area placeholders
+        forgeHeaderArea.setPromptText("粘贴JWT后自动填充，或手动输入Header JSON");
+        forgePayloadArea.setPromptText("粘贴JWT后自动填充，或手动输入Payload JSON");
+        forgeKeyArea.setPromptText("输入HS密钥（字符串）或RS/ES/PS私钥（PEM格式）");
+        forgeResultArea.setEditable(false);
+        forgeResultArea.setPromptText("点击「生成伪造JWT」后在此显示结果");
+
+        // Auto-parse JWT into forge areas when JWT input changes
+        jwtInputArea.textProperty().addListener((obs, oldVal, newVal) -> {
+            String text = newVal == null ? "" : newVal.trim();
+            if (text.isEmpty()) return;
+            try {
+                JwtToken token = new JwtToken(text);
+                forgeHeaderArea.setText(prettyJson(token.getHeaderJson()));
+                forgePayloadArea.setText(prettyJson(token.getPayloadJson()));
+            } catch (Exception ignored) {
+                // Not a valid JWT yet, don't update
+            }
+        });
+
+        // Speed up scroll: intercept mouse wheel and multiply increment
+        mainScrollPane.setOnScroll(e -> {
+            double delta = e.getDeltaY() * 3 / mainScrollPane.getContent().getBoundsInLocal().getHeight();
+            mainScrollPane.setVvalue(mainScrollPane.getVvalue() - delta);
+            e.consume();
+        });
     }
 
     @FXML
@@ -185,6 +224,95 @@ public class MainController implements Initializable {
         resultArea.clear();
         statusLabel.setText("就绪");
         progressBar.setProgress(0);
+    }
+
+    @FXML
+    private void onForge() {
+        String headerJson = forgeHeaderArea.getText().trim();
+        String payloadJson = forgePayloadArea.getText().trim();
+        String keyStr = forgeKeyArea.getText().trim();
+
+        if (headerJson.isEmpty() || payloadJson.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "提示", "请先填写 Header JSON 和 Payload JSON！\n（粘贴JWT令牌后会自动填充）");
+            return;
+        }
+        if (keyStr.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "提示", "请输入密钥或PEM私钥！");
+            return;
+        }
+
+        // Extract algorithm from header JSON
+        String alg = extractAlgFromJson(headerJson);
+        if (alg == null) {
+            showAlert(Alert.AlertType.ERROR, "错误", "无法从Header JSON中提取算法字段（alg），请确认Header格式正确。");
+            return;
+        }
+
+        try {
+            String forged = JwtForger.forge(alg, headerJson, payloadJson, keyStr);
+            forgeResultArea.setText(forged);
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "伪造失败", e.getMessage());
+        }
+    }
+
+    /**
+     * Extract "alg" value from a JSON string without external dependencies.
+     */
+    private String extractAlgFromJson(String json) {
+        int idx = json.indexOf("\"alg\"");
+        if (idx < 0) return null;
+        int colon = json.indexOf(':', idx);
+        if (colon < 0) return null;
+        int q1 = json.indexOf('"', colon + 1);
+        if (q1 < 0) return null;
+        int q2 = json.indexOf('"', q1 + 1);
+        if (q2 < 0) return null;
+        return json.substring(q1 + 1, q2);
+    }
+
+    /**
+     * Very simple JSON pretty-printer: adds newlines after commas and braces.
+     * Only used for display; not a full parser.
+     */
+    private String prettyJson(String json) {
+        if (json == null) return "";
+        StringBuilder sb = new StringBuilder();
+        int indent = 0;
+        boolean inString = false;
+        for (int i = 0; i < json.length(); i++) {
+            char c = json.charAt(i);
+            if (c == '"' && (i == 0 || json.charAt(i - 1) != '\\')) inString = !inString;
+            if (!inString) {
+                if (c == '{' || c == '[') {
+                    sb.append(c).append('\n');
+                    indent += 2;
+                    appendIndent(sb, indent);
+                    continue;
+                } else if (c == '}' || c == ']') {
+                    sb.append('\n');
+                    indent -= 2;
+                    appendIndent(sb, indent);
+                    sb.append(c);
+                    continue;
+                } else if (c == ',') {
+                    sb.append(c).append('\n');
+                    appendIndent(sb, indent);
+                    continue;
+                } else if (c == ':') {
+                    sb.append(c).append(' ');
+                    continue;
+                } else if (c == ' ' || c == '\t' || c == '\n' || c == '\r') {
+                    continue; // strip original whitespace
+                }
+            }
+            sb.append(c);
+        }
+        return sb.toString();
+    }
+
+    private void appendIndent(StringBuilder sb, int indent) {
+        for (int i = 0; i < indent; i++) sb.append(' ');
     }
 
     /**

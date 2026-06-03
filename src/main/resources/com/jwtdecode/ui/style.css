@@ -35,6 +35,17 @@
     -fx-background-color: #1e1e2e;
 }
 
+/* ---- Main scroll pane ---- */
+.main-scroll {
+    -fx-background-color: #1e1e2e;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.main-scroll > .viewport {
+    -fx-background-color: #1e1e2e;
+}
+
 /* ---- Section boxes ---- */
 .section-box {
     -fx-background-color: #25253a;
@@ -225,6 +236,59 @@
     -fx-background-color: #0d0d1a;
 }
 
+/* ---- Forge workspace areas ---- */
+.forge-area {
+    -fx-background-color: #16162a;
+    -fx-text-fill: #e0e0f0;
+    -fx-border-color: #35355a;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+    -fx-control-inner-background: #16162a;
+}
+
+.forge-area:focused {
+    -fx-border-color: #00e676;
+}
+
+.forge-area .content {
+    -fx-background-color: #16162a;
+}
+
+.forge-result-area {
+    -fx-background-color: #0d1a10;
+    -fx-text-fill: #00e676;
+    -fx-border-color: #005530;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+    -fx-control-inner-background: #0d1a10;
+}
+
+.forge-result-area .content {
+    -fx-background-color: #0d1a10;
+}
+
+/* ---- Forge button ---- */
+.forge-btn {
+    -fx-background-color: #1565c0;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-padding: 8 14 8 14;
+}
+
+.forge-btn:hover {
+    -fx-background-color: #1976d2;
+}
+
 /* ---- Footer ---- */
 .footer-bar {
     -fx-background-color: #13131f;
@@ -254,10 +318,17 @@
 
 .scroll-bar .increment-button,
 .scroll-bar .decrement-button {
-    -fx-background-color: #1e1e2e;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-min-height: 0;
+    -fx-min-width: 0;
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
 }
 
 .scroll-bar .increment-arrow,
 .scroll-bar .decrement-arrow {
-    -fx-background-color: #55556a;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-shape: "";
 }
