@@ -2,7 +2,7 @@
 
 > JWT 密钥爆破 & 伪造工具 
 
-参考了**[JWT_Decode-wuwu](https://github.com/3wdsys-cyber/JWT_Decode-wuwu)** by [3wdsys-cyber](https://github.com/3wdsys-cyber)，但是完全没有使用原码，是重新编写的
+参考了[JWT_Decode-wuwu](https://github.com/3wdsys-cyber/JWT_Decode-wuwu) by [3wdsys-cyber](https://github.com/3wdsys-cyber)，但是完全没有使用原码，是重新编写的
 
 ---
 
@@ -38,7 +38,8 @@
 
 下载 `JWT_Crack_Gonnacrazy.exe`以及Java环境，双击运行。
 
-![image-20260604214137813](C:\Users\David sun\AppData\Roaming\Typora\typora-user-images\image-20260604214137813.png)
+<img width="2559" height="1528" alt="屏幕截图 2026-06-04 214131" src="https://github.com/user-attachments/assets/610a5188-e7d1-42ca-86ef-5472fc9fa354" />
+
 
 ### 爆破流程
 
